@@ -1,0 +1,27 @@
+# java
+*.class
+*.jar
+*.war
+*.ear
+*.scssc
+# ivy lib folder
+/lib
+# ant output folder
+build
+# maven output folder
+/target
+# gradle output folder
+.gradle
+gradle
+# Intellij IDEA config
+.idea
+*.iml
+/out
+/classes
+# Eclipse config
+.classpath
+.project
+.settings
+/bin
+# icon cache
+.DS_Store
