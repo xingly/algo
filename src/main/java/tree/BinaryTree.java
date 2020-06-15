@@ -1,8 +1,7 @@
 package tree;
 
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -24,9 +23,42 @@ public class BinaryTree {
     }
 
     /**
+     * 创建一颗树
+     * @param arr
+     * @return
+     */
+    private static TreeNode create(Integer[] arr, int n) {
+        TreeNode[] nodes = new TreeNode[n];
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == null) {
+                nodes[i] = null;
+            }else {
+                nodes[i] = new TreeNode(arr[i]);
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            if (nodes[i] == null) {
+                continue;
+            }
+
+            int indexLeft = i * 2 + 1;
+            if (indexLeft < n) {
+                nodes[i].left = nodes[indexLeft];
+            }
+
+            int indexRight = i * 2 + 2;
+            if (indexRight < n) {
+                nodes[i].right = nodes[indexRight];
+            }
+        }
+        return nodes[0];
+    }
+
+    /**
      * @link https://leetcode-cn.com/problems/linked-list-in-binary-tree/
      *
-     * @description linked-list-in-binary-tree
+     * @description 二叉树中的列表
      */
     public static boolean isSubPath(ListNode head, TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
@@ -95,49 +127,58 @@ public class BinaryTree {
         return false;
     }
 
+    /**
+     * @link https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
+     *
+     * @Description 二叉树层序遍历
+     */
+    public static List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int sz = queue.size();
+            List<Integer> curList = new ArrayList<>(sz);
+            for (int i = 0; i < sz; i++) {
+                TreeNode cur = queue.poll();
+                curList.add(cur.val);
+
+                if (cur.left != null) {
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    queue.offer(cur.right);
+                }
+            }
+            result.add(curList);
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
-        Integer[] arr = {1, 4, 4, null, 2, 2, null, 1, null, 6, 8, null, null, null, null, 1, 3};
-        TreeNode[] nodes = new TreeNode[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null) {
-                nodes[i] = null;
-            }else {
-                nodes[i] = new TreeNode(arr[i]);
-            }
-        }
+        Integer[] arr = {3, 9, 20, null, null, 15, 7};
+        TreeNode root = create(arr, arr.length);
 
-        TreeNode root = create(nodes);
+        // 二叉树中的列表
+//        ListNode head = new ListNode(1);
+//        head.next = new ListNode(4);
+//        head.next.next = new ListNode(2);
+//        head.next.next.next = new ListNode(6);
+//        boolean flag = isSubPath(head, root);
+//        System.out.println(flag);
 
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(4);
-        head.next.next = new ListNode(2);
-        head.next.next.next = new ListNode(6);
+        // 二叉树层序遍历
 
-        boolean flag = isSubPath(head, root);
-        System.out.println(flag);
+        List<List<Integer>> result = levelOrder(root);
+        System.out.println(result.toString());
+
     }
 
-
-    private static TreeNode create(TreeNode[] nodes) {
-
-        int len = nodes.length;
-
-        for(int i = 0; i < len; i++){
-            if (nodes[i] == null) {
-                continue;
-            }
-
-            int indexLeft = i * 2 + 1;
-            if (indexLeft < len) {
-                nodes[i].left = nodes[indexLeft];
-            }
-
-            int indexRight = i * 2 + 2;
-            if (indexRight < len) {
-                nodes[i].right = nodes[indexRight];
-            }
-        }
-        return nodes[0];
-    }
 
 }
