@@ -9,6 +9,24 @@ package linkedlist;
  */
 public class SinglyLinkedList {
 
+    /**
+     * 链表反转
+     *
+     * @param p
+     * @return
+     */
+    public Node reverse(Node p) {
+        Node cur = p;
+        Node pre = null;
+        while (cur != null) {
+            Node next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
 
     private static class Node {
         private int data;
