@@ -85,12 +85,13 @@ public class SinglyLinkedList {
      * @return
      */
     public Node deleteKth(Node list, int k) {
+
         Node pre = null;
         Node cur = list;
         int i = 1;
         while (cur != null && i < k) {
-            cur = cur.next;
             pre = cur;
+            cur = cur.next;
             i++;
         }
 
@@ -98,35 +99,46 @@ public class SinglyLinkedList {
             return list;
         }
 
-        pre.next = pre.next.next;
-        cur = null;
-
+        if (pre == null) {
+            list = list.next;
+        } else {
+            pre.next = pre.next.next;
+        }
         return list;
     }
 
     /**
-     * 删除链表倒数第 n 个节点
+     * 删除链表倒数第 k 个节点
      *
      * @param list
-     * @param n
+     * @param k
      * @return
      */
-    public Node deleteLastKth(Node list, int n) {
+    public Node deleteLastKth(Node list, int k) {
+        Node fast = list;
+        int i = 1;
+        while (fast != null && i < k) {
+            fast = fast.next;
+            i++;
+        }
 
-        if (n < 1 || list == null) {
-            return null;
+        if (fast == null) {
+            return list;
         }
 
         Node pre = null;
-        Node p = list;
-        int i = 0;
-//        while (p != null) {
-//            pre = p;
-//            p = p.next;
-//            i++;
-//            if(i )
-//        }
+        Node slow = list;
+        while (fast.next != null) {
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next;
+        }
 
+        if (pre == null) {
+            list = list.next;
+        }else {
+            pre.next = pre.next.next;
+        }
 
         return list;
     }
