@@ -11,12 +11,12 @@ public class Array {
 
     private int n;
 
-    private int count;
+    private int size;
 
     public Array(int capacity) {
         this.data = new int[capacity];
         this.n = capacity;
-        this.count = 0;
+        this.size = 0;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Array {
      * @return
      */
     public int find(int index) {
-        if (index < 0 || index >= count) {
+        if (index < 0 || index >= size) {
             return -1;
         }
         return data[index];
@@ -41,20 +41,20 @@ public class Array {
      */
     public boolean insert(int index, int value) {
         // 数组已满
-        if (count == n) {
+        if (size == n) {
             return false;
         }
 
         // 位置不合法
-        if (index < 0 || index > count) {
+        if (index < 0 || index > size) {
             return false;
         }
 
-        for (int i = count; i > index; i--) {
+        for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
         data[index] = value;
-        count++;
+        size++;
         return true;
     }
 
@@ -65,14 +65,14 @@ public class Array {
      * @return
      */
     public boolean delete(int index) {
-        if (index < 0 || index >= count) {
+        if (index < 0 || index >= size) {
             return false;
         }
 
-        for (int i = index; i <= count - 1; i++) {
+        for (int i = index; i <= size - 1; i++) {
             data[i] = data[i + 1];
         }
-        count--;
+        size--;
         return true;
     }
 
@@ -83,7 +83,7 @@ public class Array {
         array.insert(0, 3);
         array.insert(0, 4);
         System.out.println(Arrays.toString(array.data));
-        System.out.println(array.count);
+        System.out.println(array.size);
         System.out.println(array.data.length);
     }
 }
