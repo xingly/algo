@@ -6,6 +6,7 @@ package linkedlist;
  * 3. 两个有序链表合并
  * 4. 删除链表倒数第 n 个结点
  * 5. 求链表中间节点
+ * 6. 单链表插入、删除、查找操作
  */
 public class SinglyLinkedList {
 
@@ -136,7 +137,7 @@ public class SinglyLinkedList {
 
         if (pre == null) {
             list = list.next;
-        }else {
+        } else {
             pre.next = pre.next.next;
         }
 
@@ -169,13 +170,5 @@ public class SinglyLinkedList {
             this.data = data;
             this.next = next;
         }
-
     }
-
-    public static void main(String[] args) {
-        Node node1 = new Node(1, null);
-        Node node2 = new Node(1, null);
-        System.out.println(node1 == node2);
-    }
-
 }
