@@ -10,6 +10,12 @@ package linkedlist;
  */
 public class SinglyLinkedList {
 
+    private Node head;
+
+    public SinglyLinkedList() {
+        head = new Node(0, null);
+    }
+
     /**
      * 单链表反转
      *
@@ -162,6 +168,20 @@ public class SinglyLinkedList {
         return slow;
     }
 
+    /**
+     * 从尾到头打印链表
+     *
+     * @param list
+     */
+    public static void printFromTail(Node list) {
+        if (list != null) {
+            if (list.next != null) {
+                printFromTail(list.next);
+            }
+            System.out.print(list.data + " ");
+        }
+    }
+
     private static class Node {
         private int data;
         private Node next;
@@ -170,5 +190,28 @@ public class SinglyLinkedList {
             this.data = data;
             this.next = next;
         }
+    }
+
+    private SinglyLinkedList addNode(int data) {
+        Node node = new Node(data, null);
+        node.next = head.next;
+        head.next = node;
+        return this;
+    }
+
+    public static void main(String[] args) {
+        SinglyLinkedList list = new SinglyLinkedList();
+        list.addNode(1).addNode(2).addNode(3);
+
+        System.out.println("从头到尾打印链表");
+        Node node = list.head.next;
+        while (node != null) {
+            System.out.print(node.data + " ");
+            node = node.next;
+        }
+        System.out.println();
+
+        System.out.println("从尾到头打印链表");
+        printFromTail(list.head.next);
     }
 }
