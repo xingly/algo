@@ -12,7 +12,7 @@ public class Solution {
      * @param nums
      * @return
      */
-    public List<List<Integer>> threeSum(int[] nums) {
+    public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> ret = new ArrayList<>();
         int len = nums.length;
         if (nums == null || len < 3) {
@@ -45,4 +45,56 @@ public class Solution {
         return ret;
     }
 
+    /**
+     * 求数组中众数
+     *
+     * @param nums
+     * @return
+     */
+    public static Integer majorityElement(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+
+        int count = 0;
+        int candidate = nums[0];
+        // 匹配阶段
+        for (int num : nums) {
+            if (candidate == num) {
+                count++;
+                continue;
+            }
+            if (count == 0) {
+                candidate = num;
+                count++;
+                continue;
+            }
+            count--;
+        }
+
+        // 计数阶段
+        count = 0;
+        for (int num : nums) {
+            if (candidate == num) {
+                count++;
+            }
+        }
+        if (count > nums.length / 2) return candidate;
+
+        return null;
+    }
+
+
+    public static void main(String[] args) {
+        // test three sum
+        int[] nums = {3, 1, -2, -4, 6};
+        List<List<Integer>> list = threeSum(nums);
+        list.forEach(e -> {
+            System.out.println(e.toString());
+        });
+
+        // 众数
+        int[] nums2 = {1, 1, 2, 2, 3, 2, 2, 2};
+        System.out.println(majorityElement(nums2));
+    }
 }
